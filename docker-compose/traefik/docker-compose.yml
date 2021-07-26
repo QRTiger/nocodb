@@ -4,10 +4,6 @@ networks:
     traefik_proxy:
         name: traefik_proxy
 
-volumes:
-  letsencrypt:
-    name: traefik-letsencrypt
-
 services:
    
     traefik:
@@ -48,7 +44,7 @@ services:
             - "80:80"         
             - "443:443"
         volumes:
-            - "letsencrypt:/letsencrypt"
+            - "./letsencrypt:/letsencrypt"
             - /var/run/docker.sock:/var/run/docker.sock:ro
 
     watchtower:
