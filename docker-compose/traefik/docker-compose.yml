@@ -35,7 +35,8 @@ services:
             - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
             - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53"
         environment:
-            - CF_DNS_API_TOKEN=${CLOUDFLARE_TOKEN}
+            - CF_API_EMAIL=${CF_API_EMAIL}
+            - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
         healthcheck:
             test: ["CMD", "wget", "-c", "http://localhost:8081/ping"]
             timeout: 3s
@@ -71,7 +72,7 @@ services:
           - traefik_proxy
         environment:
           - NC_DB=pg://nocodb-db:5432?u=${DATABASE_USER}&p=${DATABASE_PW}&d=${DATABASE_NAME}          
-          - NC_PUBLIC_URL=https://nocodb.${DOMAINNAME}
+          - NC_PUBLIC_URL=https://${DOMAINNAME}
           - NC_DISABLE_TELE=true
         labels:
             - "traefik.enable=true"
