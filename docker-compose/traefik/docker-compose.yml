@@ -7,9 +7,7 @@ networks:
 volumes:
   letsencrypt:
     name: traefik-letsencrypt
-  nocodb-db:
-    name: nocodb-db
-    
+
 services:
    
     traefik:
@@ -95,7 +93,7 @@ services:
            POSTGRES_PASSWORD: ${DATABASE_PW}
            POSTGRES_DB: ${DATABASE_NAME}
         volumes:
-          - nocodb-db:/var/lib/postgresql/data
+          - ./nocodb-db:/var/lib/postgresql/data
         healthcheck:
           test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
           interval: 10s
